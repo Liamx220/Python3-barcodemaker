@@ -1,9 +1,11 @@
 import barcode
 import subprocess
+import shutil, os
+
 
 print("type help to get supported barcode types")
 barcodetype = input("What type of barcode do you want to make? (if none specified defaults to code128)")
-
+save_path = '/home/lh/Documents/'
 types = ["ean8","ean13","ean14","upca","jan","isbn10","isbn13","issn","code39","code128","pzn"]
 
 if barcodetype == "help":
@@ -19,7 +21,10 @@ if barcodetype in types:
 	
 	code = barcode.get(barcodetype, barcode_text)
 	image_filename = input("what do you want to save the file as?")	
-	filename = code.save(image_filename)
+	filename = code.save(image_filename, )
+
+	shutil.copy(filename, '/home/lh/Documents/')
+	os.remove(filename) 
 	print("file saved as " + image_filename + ".svg")
 
 elif barcodetype not in types:
